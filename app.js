@@ -16,7 +16,7 @@ app.post("/shorten", (req, res) => {
 
   urlDatabase[shortId] = { originalUrl, metaImg, metaTitle };
   // develop
-  // const shortUrl = `http://localhost:${port}/${shortId}`;
+  // const shortUrl = `http://localhost:3000/${shortId}`;
   // production
   const shortUrl = `https://friday-share-fb955bc29bef.herokuapp.com/${shortId}`;
 
@@ -36,7 +36,7 @@ app.get("/:shortId", (req, res) => {
   try {
     const { originalUrl, metaImg, metaTitle } = urlDatabase[shortId];
     if (originalUrl) {
-      // res.redirect(url);
+      // res.redirect(originalUrl);
       res.send(`
       <html>
         <head>
@@ -61,7 +61,7 @@ app.get("/:shortId", (req, res) => {
       res.status(404).send("URL not found");
     }
   } catch (error) {
-    res.status(404).send("URL not found");
+    res.status(400).send("Invalid URL");
   }
 });
 
