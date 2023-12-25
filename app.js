@@ -1,8 +1,9 @@
 import express, { json } from "express";
 import { nanoid } from "nanoid";
+import dotenv from 'dotenv';
 
+dotenv.config();
 const app = express();
-const port = 3000;
 
 const urlDatabase = {};
 
@@ -58,7 +59,7 @@ app.get("/:shortId", (req, res) => {
   }
 });
 
-
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-});
+app.listen(
+  process.env.PORT || 5000,
+  console.log(`Server running on port ${process.env.PORT}`)
+);
