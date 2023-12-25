@@ -22,6 +22,9 @@ app.post("/shorten", (req, res) => {
     short_url: shortUrl,
   });
 });
+app.get("/", (req, res) => {
+  res.send("Hello World!");
+});
 
 // Redirect to original URL when using short URL
 app.get("/:shortId", (req, res) => {
