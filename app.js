@@ -15,7 +15,10 @@ app.post("/shorten", (req, res) => {
   const shortId = nanoid(8);
 
   urlDatabase[shortId] = { originalUrl, metaImg, metaTitle };
-  const shortUrl = `http://localhost:${port}/${shortId}`;
+  // develop
+  // const shortUrl = `http://localhost:${port}/${shortId}`;
+  // production
+  const shortUrl = `https://friday-share-fb955bc29bef.herokuapp.com/${shortId}`;
 
   res.json({
     original_url: originalUrl,
