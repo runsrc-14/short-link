@@ -1,6 +1,22 @@
 import express, { json } from "express";
 import { nanoid } from "nanoid";
-import dotenv from 'dotenv';
+import dotenv from "dotenv";
+import admin from "firebase-admin";
+import serviceAccount from "./short-url-b901c-firebase-adminsdk-xmrz0-4628dafa1d.js";
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+});
+
+const db = admin.firestore();
+db.settings({ ignoreUndefinedProperties: true });
+
+db.collection("short-link").get().then((snapshot) => {
+  snapshot.forEach((doc) => {
+    var data = doc.data();
+    console.log(data);
+  });
+});
 
 dotenv.config();
 const app = express();
@@ -16,9 +32,9 @@ app.post("/shorten", (req, res) => {
 
   urlDatabase[shortId] = { originalUrl, metaImg, metaTitle };
   // develop
-  // const shortUrl = `http://localhost:3000/${shortId}`;
+  const shortUrl = `http://localhost:3000/${shortId}`;
   // production
-  const shortUrl = `https://friday-share-fb955bc29bef.herokuapp.com/${shortId}`;
+  // const shortUrl = `https://friday-share-fb955bc29bef.herokuapp.com/${shortId}`;
 
   res.json({
     original_url: originalUrl,
